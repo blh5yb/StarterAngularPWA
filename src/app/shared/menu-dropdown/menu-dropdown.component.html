@@ -1,0 +1,16 @@
+<ion-list>
+  <ion-item button style="cursor:pointer;" lines="none" (click)="dismissPopover('my-info')">
+    <ion-icon slot="start" ios="person-circle-outline" md="person-circle-sharp"></ion-icon>
+    <ion-label>My Info</ion-label>
+  </ion-item>
+  <ion-item button style="cursor:pointer;" lines="none" (click)="dismissPopover('about')">
+    <ion-icon slot="start" ios="information-circle-outline" md="information-circle-sharp"></ion-icon>
+    <ion-label>About</ion-label>
+  </ion-item>
+  <ion-item *ngIf="profile && !profile.anonymous" button style="cursor:pointer;" lines="none" (click)="dismissPopover('logout')">
+    <ion-icon slot="start" ios="log-out-outline" md="log-out-sharp"></ion-icon>
+    <ion-label>Log Out</ion-label>
+  </ion-item>
+</ion-list>
+<ion-content slot="start">
+</ion-content>

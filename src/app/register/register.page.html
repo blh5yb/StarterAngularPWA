@@ -1,0 +1,48 @@
+<app-loader *ngIf="isLoading"></app-loader>
+<app-header *ngIf="!isLoading"></app-header>
+
+<ion-content *ngIf="!isLoading">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-content>
+            <ion-button color="dark" expand="block" class="ion-margin-top" [disabled]="isLoading" (click)="googleLogin()">
+              Register in with&nbsp;<ion-icon name="logo-google"></ion-icon>oogle
+              <ion-spinner *ngIf="isLoading" name="dots"></ion-spinner>
+            </ion-button>
+            <br>
+            <ion-card-title class="ion-text-center">
+              OR
+            </ion-card-title>
+            <form [formGroup]="signUpForm" autocomplete="off" (ngSubmit)="onSubmit()">
+              <ion-item>
+                <ion-label position="floating">Email Address</ion-label>
+                <ion-input type="email" formControlName="email"></ion-input>
+              </ion-item>
+              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error-message">
+                <div *ngIf="email.errors.required">Email is required</div>
+                <div *ngIf="email.errors.email">Invalid Email</div>
+              </div>
+              <ion-item>
+                <ion-label position="floating">Password</ion-label>
+                <ion-input type="password" formControlName="pass"></ion-input>
+              </ion-item>
+              <div *ngIf="pass.invalid && (pass.dirty || pass.touched)" class="error-message">
+                <div *ngIf="pass.errors.required">Password Is Required</div>
+                <div *ngIf="pass.errors.minlength">Please enter a minimum of 6 characters</div>
+              </div>
+              <ion-button color="success" expand="block" class="ion-margin-top" (keydown.enter)="prevent($event)" [disabled]="!signUpForm.valid" (click)="onSubmit()">Sign Up</ion-button>
+            </form>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<app-footer 
+  style="padding-left: 13px;"
+  *ngIf="!isLoading"
+>
+</app-footer>

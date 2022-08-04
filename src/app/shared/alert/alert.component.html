@@ -1,0 +1,12 @@
+<div class="backdrop" (click)="onClose()"></div>
+<div class="alert-box">
+    <ion-row>
+        <ion-text style="color: black;">{{ message }}</ion-text>
+    </ion-row>
+    <div class="alert-box-actions">
+        <ion-button color="primary" (click)="onClose()">
+            Close
+        </ion-button>
+        <!--<button class="btn btn-primary" (click)="onClose()">Close</button>-->
+    </div>
+</div>

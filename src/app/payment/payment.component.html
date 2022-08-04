@@ -1,0 +1,61 @@
+<form [formGroup]="tipForm" method="post" id="payment-form" (ngSubmit)="createStripeToken()">
+  <ion-item>
+    <ion-label><ion-text class="text-wrap">{{ tip_label }}</ion-text></ion-label>
+    <span class="input-group-addon">$</span>
+    <input
+      style="width: 20%;"
+      type="number"
+      class="form-control"
+      id="amount"
+      min="0"
+      formControlName="amount"
+      (keypress)="keyPressNumbers($event)"
+    >
+  </ion-item> 
+  <div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="alert alert-danger" style="color: #f44336">
+    <div *ngIf="amount.errors?.pattern || amount.errors?.required">Please enter a positive dollar amount to continue</div>
+    <div *ngIf="amount.errors?.min">{{ min_error }}</div>
+  </div>
+  <br>
+  <div>
+    <ion-row>
+      
+    </ion-row>
+    <div class="form-row">
+      <div id="card-info" #cardInfo>
+        <!--STRIPE CARD ELEMENT-->
+      </div>
+    </div>
+    <div *ngIf="cardError && cardError !== 'input card info'" class="alert alert-danger" style="color: #f44336">
+      {{ cardError }}
+    </div>
+    <!--<br>
+    <ion-item *ngIf="!profile.email">
+      <ion-label position="floating">Email Address (for receipts)</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error-message">
+      email is invalid
+    </div>
+    <br>-->
+    <ion-button type="submit" 
+      color="success" 
+      expand="block" 
+      (click)="createStripeToken()" 
+      (keydown.enter)="prevent($event)" 
+      [disabled]="showSpinner || cardError || !tipForm.valid || !card || !profile.private.accepted_policy || !profile.private.accepted_terms">
+      <ion-icon name="cash-outline">&nbsp;</ion-icon>
+      Submit tip
+      <ion-spinner *ngIf="showSpinner" name="dots"></ion-spinner>
+    </ion-button>
+    <br>
+    <div id="payment-request-button">
+      <!-- STRIPE GOOGLE/ APPLE PAY BUTTON -->
+    </div>
+    <div *ngIf="payButtonError" class="error-message">
+      {{ payButtonError }}
+    </div>
+    <ion-img style="margin:0 auto; height:100px;" src="src/assets/icon/stripe-badge-transparent.png">
+    </ion-img>
+  </div>
+</form>

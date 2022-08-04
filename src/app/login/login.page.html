@@ -1,0 +1,60 @@
+<app-loader *ngIf="isLoading"></app-loader>
+<app-header *ngIf="!isLoading"></app-header>
+
+<ion-content *ngIf="!isLoading">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-content>
+            <ion-button color="dark" expand="block" class="ion-margin-top" [disabled]="isLoading" (click)="continueAsGuest()">
+              Continue As Guest
+              <ion-spinner *ngIf="isLoading" name="dots"></ion-spinner>
+            </ion-button>
+            <ion-button color="light" expand="block" class="ion-margin-top" [disabled]="isLoading" (click)="googleLogin()">
+              Log in with&nbsp;<ion-icon name="logo-google"></ion-icon>oogle
+              <ion-spinner *ngIf="isLoading" name="dots"></ion-spinner>
+            </ion-button>
+            <br>
+            <ion-card-title class="ion-text-center">
+              OR
+            </ion-card-title>
+            <form [formGroup]="signInForm" autocomplete="off" (ngSubmit)="onSubmit()">
+              <ion-item>
+                <ion-label position="floating">Email Address</ion-label>
+                <ion-input type="email" formControlName="email"></ion-input>
+              </ion-item>
+              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error-message">
+                <div *ngIf="email.errors.required">Email is required</div>
+                <div *ngIf="email.errors.email">Email is invalid</div>
+              </div>
+              <ion-item>
+                <ion-label position="floating">Password</ion-label>
+                <ion-input type="password" formControlName="pass"></ion-input>
+              </ion-item>
+              <div *ngIf="pass.invalid && (pass.dirty || pass.touched)" class="error-message">
+                <div *ngIf="pass.errors.required">Password is required</div>
+              </div>
+              <ion-button color="success" expand="block" class="ion-margin-top" [disabled]="!signInForm.valid || isLoading" (click)="onSubmit()">
+                Log in
+                <ion-spinner *ngIf="isLoading" name="dots"></ion-spinner>
+              </ion-button>
+            </form>
+            <div class="ion-text-center">
+              <a style="cursor: pointer; text-align: center;" routerLink="/login/forgot-password">Forgot Password?</a>
+            </div>
+            <div class="ion-text-center">
+              <a style="cursor: pointer;" routerLink="/register">Register</a>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<app-footer 
+  style="padding-left: 13px;"
+  *ngIf="!isLoading"
+>
+</app-footer>

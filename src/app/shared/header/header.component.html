@@ -1,0 +1,30 @@
+<ion-header *ngIf="!isLoading">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button
+        [disabled]="isLoading" 
+        *ngIf="['/about', '/policy', '/terms'].includes(my_url)"
+        color="dark"
+      >
+      </ion-menu-button>
+      <ion-back-button
+        [disabled]="isLoading"
+        *ngIf="show_back_button"
+        [defaultHref]="back_route"
+      >
+      </ion-back-button>
+      <div *ngIf="isAuthenticated">
+        <ion-button [disabled]="isLoading" *ngIf="!['/about', '/policy', '/terms'].includes(my_url)" (click)="menuPopover($event)">
+          <ion-icon *ngIf="!photoURL" name="add-circle-outline" size="large"></ion-icon>
+          <ion-avatar *ngIf="photoURL" style="margin:0 auto; height: 25px; width: 25px;">
+            <img src="{{ photoURL }}">
+          </ion-avatar>
+        </ion-button>
+        <ion-button [disabled]="isLoading" color="dark" routerDirection="root" (click)="goHome()">
+          <ion-icon *ngIf="'/home' === my_url" style="cursor: pointer; height: 25px; width: 25px;" ios="home" md="home-sharp" lines="none"></ion-icon>
+          <ion-icon *ngIf="'/home' !== my_url" style="cursor: pointer; height: 25px; width: 25px;" name="home-outline" lines="none"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>

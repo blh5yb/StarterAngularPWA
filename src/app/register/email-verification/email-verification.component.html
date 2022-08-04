@@ -1,0 +1,54 @@
+<app-loader *ngIf="isLoading"></app-loader>
+<app-header *ngIf="!isLoading"></app-header>
+
+<ion-content *ngIf="!isLoading">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title class="ion-text-center">
+              Thank You For Signing Up
+            </ion-card-title>
+            <ion-card-subtitle class="ion-text-center" *ngIf="email">
+              <ion-text color="dark">
+                Email verification link sent to {{ email }}</ion-text>
+            </ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="formGroup">
+              <p><ion-text color="dark">Please Confirm Your Email To Continue</ion-text></p>
+              <p><ion-text color="dark">Check Your Email For The Subject 'Verify your email for {{ company }}'</ion-text></p>
+              <p><ion-text color="dark">Check Your Spam Folder If You Do Not See It</ion-text></p>
+            </div>
+        
+            <div class="formGroup">
+              <ion-row>
+                <ion-col size="6">
+                  <ion-button 
+                    expand="block"
+                    color="light"
+                    (click)="authService.SendVerificationMail()"
+                  >
+                  Resend Email
+                </ion-button>
+                </ion-col>
+                <ion-col size="6">
+                  <ion-button expand="block" color="primary" (click)="goToSignIn()">
+                    Go To Sign In
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </div>
+           </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<app-mytunez-footer 
+  style="padding-left: 13px;"
+  *ngIf="!isLoading"
+>
+</app-mytunez-footer>
